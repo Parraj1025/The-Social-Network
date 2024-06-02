@@ -1,0 +1,26 @@
+{
+  "name": "the-social-network",
+  "version": "1.0.0",
+  "description": "Social Networking Platform ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Parraj1025/The-Social-Network.git"
+  },
+  "keywords": [
+    "social",
+    "network"
+  ],
+  "author": "Juan Parra, Marcio Pimentel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Parraj1025/The-Social-Network/issues"
+  },
+  "homepage": "https://github.com/Parraj1025/The-Social-Network#readme",
+  "dependencies": {
+    "dotenv": "^16.4.5"
+  }
+}
