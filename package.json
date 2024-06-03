@@ -21,6 +21,8 @@
   },
   "homepage": "https://github.com/Parraj1025/The-Social-Network#readme",
   "dependencies": {
-    "dotenv": "^16.4.5"
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "sequelize": "^6.37.3"
   }
 }
