@@ -114,7 +114,7 @@ This project not only demonstrates the practical application of these technologi
 ```
 
 
-
+## Contributors
   **Team Name:** Fist of 5
   * Edwin Rivera | Slack name: Edwin Rivera | Github : EdRivera016
   * Maria Roa | Slack name: Maria Roa | Github : aleroas
