@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "server.js"
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
@@ -15,7 +15,7 @@
     "social",
     "network"
   ],
-  "author": "Juan Parra, Marcio Pimentel",
+  "author": "Juan Parra, Edwin Rivera, Marcio Pimentel",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Parraj1025/The-Social-Network/issues"
