@@ -8,4 +8,3 @@ console.log(`POSTGRESURL: ${process.env.POSTGRESURL}`)
 const sequelize = new Sequelize(process.env.POSTGRESURL, {dialect: 'postgres'})
 
 module.exports = sequelize
-
