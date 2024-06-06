@@ -85,6 +85,7 @@ app.post('/api/posts', (req,res) => {
     user: username,
     thought: thoughts
  }
+ posts.push(newpost)
   console.log(username,thoughts)
  //add user
  //output confirmation
