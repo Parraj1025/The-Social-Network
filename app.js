@@ -90,6 +90,6 @@ app.post('/api/posts', (req,res) => {
  //add user
  addPosts(username,thoughts)
  //output confirmation
- res.json({message: 'post added'})
+ res.json({message: `${username},${thoughts}`})
 })
 
