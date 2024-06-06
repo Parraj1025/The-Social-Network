@@ -81,6 +81,11 @@ app.post('/api/posts', (req,res) => {
  //grab input
  const username = req.body.username;
  const thoughts = req.body.thoughts
+ let newpost = {
+    user: username,
+    thought: thoughts
+ }
+ posts.push(newpost)
   console.log(username,thoughts)
  //add user
  addPosts(username,thoughts)
