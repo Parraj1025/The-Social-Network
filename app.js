@@ -5,25 +5,18 @@ const PORT = process.env.PORT || 3001
 const renderPost = require('./public/js/renderposts');
 const { Sequelize } = require('sequelize')
 
-const sequelize = new Sequelize (
-    process.env.POSTGRESURL,
-    {
-        dialect: 'postgres',
-        loggin: false,
-        dialectOptions: {
-            ssl: {
-                require:true,
-                rejectUnauthorized: false
-            }
-        }
-    }
-)
+// const sequelize = new Sequelize (
+//     process.env.POSTGRESURL,
+//     {
+//         dialect: 'postgres',
+//     }
+// )
 
-sequelize.sync()
-.then(()=>{
-    console.log('youre in')
-})
-.catch((err)=>{console.log(err)}) 
+// sequelize.sync()
+// .then(()=>{
+//     console.log('youre in')
+// })
+// .catch((err)=>{console.log(err)}) 
 
 
 // client.connect().then(()=>{console.log('hey im connected')}).catch(err => console.error(err))
