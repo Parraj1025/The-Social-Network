@@ -33,11 +33,23 @@ app.use(express.static('./public'));
 app.use(express.json());
 
 
-//created logic for a post and storage for the post
+//created logic for a post and storage for the posts
 
+ const posts = []
+
+class post {
+ constructor(username,thoughts){
+ this.username = username,
+ this.thoughts = thoughts
+}
 
 // //fucntion to create a new post with provided information
+}
 
+
+const addPosts = (username,thoughts) => {
+    posts.push(new post(username,thoughts))
+}
 
 // //show what port it is listening on
 app.listen(PORT, () => {
@@ -76,7 +88,8 @@ app.post('/api/posts', (req,res) => {
  posts.push(newpost)
   console.log(username,thoughts)
  //add user
+ addPosts(username,thoughts)
  //output confirmation
- res.json({message: `${username},${thoughts}`})
+//  res.json({message: `${username},${thoughts}`})
 })
 
