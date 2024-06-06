@@ -59,7 +59,7 @@ console.log(`running on port ${PORT}`)});
 
 app.get("/",(req,res) => { 
     // res.render('index');
-    res.send("./views/index.html")
+    res.sendFile('/views/index.html')
 } )
 
 //get route for the posts API
