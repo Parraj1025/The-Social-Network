@@ -57,9 +57,9 @@ console.log(`running on port ${PORT}`)});
 
 //get route for index files
 
-app.get("/",(req,res) => { 
+app.get("*",(req,res) => { 
     // res.render('index');
-    res.sendFile('index.html')
+    res.sendFile(__dirname + '/index.html')
 } )
 
 //get route for the posts API
