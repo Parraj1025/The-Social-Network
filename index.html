@@ -28,6 +28,14 @@
             <button id="submit">POST</button>
         </form>
 </div>
+<div>
+    <h1>POSTS</h1>
+    <script>
+        fetch('/api/posts')
+        .then(response => response.json())
+        .then(posts => console.log(users))
+    </script> 
+</div>
 <script src="./js/renderposts.js"></script>
 </body>
 </html>

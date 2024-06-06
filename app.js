@@ -47,10 +47,6 @@ class post {
 }
 
 
-const addPosts = (username,thoughts) => {
-    posts.push(new post(username,thoughts))
-}
-
 // //show what port it is listening on
 app.listen(PORT, () => {
 console.log(`running on port ${PORT}`)});
