@@ -56,6 +56,7 @@ console.log(`running on port ${PORT}`)});
 app.get("/",(req,res) => { 
     // res.render('index');
     res.sendFile(__dirname + '/index.html')
+    
 } )
 
 //get route for the posts API
@@ -87,4 +88,8 @@ app.post('/api/posts', (req,res) => {
  //output confirmation
  res.json({message: `${username},${thoughts}`})
 })
+
+const users = await fetch('/api/posts')
+console.log(posts)
+
 
