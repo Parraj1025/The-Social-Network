@@ -89,7 +89,6 @@ app.post('/api/posts', (req,res) => {
  res.json({message: `${username},${thoughts}`})
 })
 
-const users = await fetch('/api/posts')
-console.log(posts)
+
 
 
