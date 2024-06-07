@@ -91,10 +91,3 @@ app.post('/api/posts', (req,res) => {
 })
 
 
-
-async function renderPosts() {
-    let URL = 'https://the-social-network.onrender.com/api/posts';
-    let posting = await fetch(URL);
-    const current =posting.json()
-    console.log(current)
-}
