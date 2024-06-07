@@ -40,5 +40,5 @@ async function loadPosts() {
 // )
 
 
-// module.exports = renderPosts();
+ module.exports = loadPosts();
 
