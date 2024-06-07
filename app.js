@@ -5,14 +5,36 @@ const sequelize = require('./config/database');
 const Post = require('./models/post'); // Import the Post model
 
 const app = express();
+require('dotenv').config()
+const PORT = process.env.PORT || 3001
+const renderPost = require('./public/js/renderposts');
+const { Sequelize } = require('sequelize')
 
+// const sequelize = new Sequelize (
+//     process.env.POSTGRESURL,
+//     {
+//         dialect: 'postgres',
+//     }
+// )
+
+// sequelize.sync()
+// .then(()=>{
+//     console.log('youre in')
+// })
+// .catch((err)=>{console.log(err)}) 
+
+
+// client.connect().then(()=>{console.log('hey im connected')}).catch(err => console.error(err))
+
+//set environment variables 
+
+//give application access to the public folder for static components of app
+
+app.use(express.static('./public'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
-app.use(express.static(path.join(__dirname, 'public')));
 
-// Set the view engine to ejs
-app.set('view engine', 'ejs');
+//created logic for a post and storage for the posts
 
 // Set the views directory
 app.set('views', path.join(__dirname, 'views'));
