@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const sequelize = require('./config/database');
 
+
 const app = express();
 require('dotenv').config()
 const PORT = process.env.PORT || 3001
@@ -91,4 +92,9 @@ app.post('/api/posts', (req,res) => {
 
 
 
-
+async function renderPosts() {
+    let URL = 'https://the-social-network.onrender.com/api/posts';
+    let posting = await fetch(URL);
+    const current =posting.json()
+    console.log(current)
+}
