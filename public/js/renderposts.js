@@ -28,7 +28,7 @@ async function loadPosts() {
     let posting = await fetch(URL);
     const current =posting.results.json()
     // console.log(current)
-    return posted
+    return current
 }
 
 // submitBtn.addEventListener('click', () => {
