@@ -26,9 +26,10 @@ function renderPosts (username) {
 async function loadPosts() {
     let URL = 'https://the-social-network.onrender.com/api/posts';
     let posting = await fetch(URL);
-    const current =posting.json()
+    const current =posting.json();
+    const finalpost = current.result;
     // console.log(current)
-    return current
+    return finalpost
 }
 
 // submitBtn.addEventListener('click', () => {
