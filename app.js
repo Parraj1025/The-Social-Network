@@ -1,6 +1,5 @@
 require('dotenv').config();
 const express = require('express');
-const
 const app = express();
 const PORT = process.env.PORT || 3001
 const renderPost = require('./public/js/renderposts');
