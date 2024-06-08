@@ -1,14 +1,12 @@
 require('dotenv').config();
 const express = require('express');
 const path = require('path');
-const sequelize = require('./config/database');
-
+const sequelize = require('./config/database'); 
 
 const app = express();
 require('dotenv').config()
 const PORT = process.env.PORT || 3001
 const renderPost = require('./public/js/renderposts');
-const { Sequelize } = require('sequelize')
 
 const { Client } = require('pg');
  
