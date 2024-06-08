@@ -10,21 +10,11 @@ const PORT = process.env.PORT || 3001
 const renderPost = require('./public/js/renderposts');
 const { Sequelize } = require('sequelize')
 
-// const sequelize = new Sequelize (
-//     process.env.POSTGRESURL,
-//     {
-//         dialect: 'postgres',
-//     }
-// )
-
-// sequelize.sync()
-// .then(()=>{
-//     console.log('youre in')
-// })
-// .catch((err)=>{console.log(err)}) 
-
-
-// client.connect().then(()=>{console.log('hey im connected')}).catch(err => console.error(err))
+const { Client } = require('pg');
+ 
+const client = new Client({ user: 'test', host: 'dpg-cpf5jmtds78s7396jnt0-a', database: 'socialdb_gk5k', password: 'BYzqlz4pODUQUtCSTlxQ5BO8I3ph0av8', port: '5432', });
+ 
+client.connect() .then(() => { console.log('Connected to PostgreSQL database!'); }) .catch((err) => { console.error('Error connecting to the database:', err); });
 
 //set environment variables 
 
