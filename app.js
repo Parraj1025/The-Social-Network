@@ -2,48 +2,23 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const sequelize = require('./config/database');
+const User = require('./models/User'); //Import User model
 const Post = require('./models/post'); // Import the Post model
+const bcrypt = require('bcrypt');
 
 const app = express();
-require('dotenv').config()
-const PORT = process.env.PORT || 3001
-const renderPost = require('./public/js/renderposts');
-const { Sequelize } = require('sequelize')
 
-// const sequelize = new Sequelize (
-//     process.env.POSTGRESURL,
-//     {
-//         dialect: 'postgres',
-//     }
-// )
-
-// sequelize.sync()
-// .then(()=>{
-//     console.log('youre in')
-// })
-// .catch((err)=>{console.log(err)}) 
-
-
-// client.connect().then(()=>{console.log('hey im connected')}).catch(err => console.error(err))
-
-//set environment variables 
-
-//give application access to the public folder for static components of app
-
-app.use(express.static('./public'));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public')));
 
-
-//created logic for a post and storage for the posts
-
-// Set the views directory
+// Set the view engine to ejs
+app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 // Sync database
 sequelize.sync({ force: true })
-  .then(() => {
-    console.log('Database synced');
-  })
+  .then(() => console.log('Database synced'))
   .catch(err => console.log('Error syncing database:', err));
 
 function formatTime(date) {
@@ -63,7 +38,6 @@ app.get('/', (req, res) => {
   });
 });
 
-// GET route to fetch all posts
 app.get('/api/posts', async (req, res) => {
   try {
     const posts = await Post.findAll();
@@ -88,7 +62,6 @@ app.get('/api/posts', async (req, res) => {
 app.post('/api/posts', async (req, res) => {
   const { username, thoughts } = req.body;
 
-  // Basic validation
   if (!username || !thoughts) {
     return res.status(400).json({
       status: "error",
@@ -97,7 +70,14 @@ app.post('/api/posts', async (req, res) => {
   }
 
   try {
-    // Create the post
+    const user = await User.findOne({ where: { username } });
+    if (!user) {
+      return res.status(404).json({
+        status: "error",
+        message: "User not found"
+      });
+    }
+
     const post = await Post.create({ username, thoughts });
     const formattedPost = {
       id: post.id,
@@ -118,7 +98,6 @@ app.post('/api/posts', async (req, res) => {
   }
 });
 
-// DELETE route to remove a post by ID
 app.delete('/api/posts/:id', async (req, res) => {
   const { id } = req.params;
 
@@ -144,186 +123,37 @@ app.delete('/api/posts/:id', async (req, res) => {
   }
 });
 
+//Register new user
+app.post('/api/users/register', async (req, res) => {
+  const { username, password } = req.body;
+
+  if(!username || !password) {
+    return res.status(400).json({
+      status: "error",
+      message: "Username and password are required"
+    });
+  }
+
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = await User.create({ username, password: hashedPassword });
+    res.status(201).json({
+      status: "success",
+      message: "User registered successfully",
+      data: { id: user.id, username: user.username }
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: "error",
+      message: error.message
+    });
+  }
+});
+
+// Authenticate a user 
+
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port http://localhost:${PORT}`);
 });
-
-
-
-// require('dotenv').config();
-// const express = require('express');
-// const path = require('path');
-// const sequelize = require('./config/database'); // Assuming you have a configured Sequelize instance
-
-// const app = express();
-
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
-
-// app.use(express.static(path.join(__dirname, 'public')));
-
-// // Set the view engine to ejs
-// app.set('view engine', 'ejs');
-
-// // Set the views directory
-// app.set('views', path.join(__dirname, 'views'));
-
-// // Define the Post class
-// class Post {
-//   constructor(username, thoughts) {
-//     this.username = username;
-//     this.thoughts = thoughts;
-//   }
-// }
-
-// // In-memory storage for posts (for development only)
-// const posts = [];
-
-// const addPost = (username, thoughts) => {
-//   posts.push(new Post(username, thoughts));
-// };
-
-// app.get('/', (req, res) => {
-//   res.status(200).json({
-//     status: "success",
-//     message: "Welcome to the Social Network API"
-//   });
-// });
-
-// // New GET route to fetch all posts
-// app.get('/api/posts', (req, res) => {
-//   res.status(200).json({
-//     status: "success",
-//     data: posts
-//   });
-// });
-
-// app.post('/api/posts', (req, res) => {
-//   const { username, thoughts } = req.body;
-
-//   // Basic validation
-//   if (!username || !thoughts) {
-//     return res.status(400).json({
-//       status: "error",
-//       message: "Username and thoughts are required"
-//     });
-//   }
-
-//   // Add the post
-//   addPost(username, thoughts);
-//   console.log(username, thoughts);
-
-//   res.status(200).json({
-//     status: "success",
-//     message: "Post added successfully"
-//   });
-// });
-
-// const PORT = process.env.PORT || 3000;
-// app.listen(PORT, () => {
-//   console.log(`Server is running on port http://localhost:${PORT}`);
-// });
-
-
-// require('dotenv').config();
-// const express = require('express');
-// const path = require('path');
-// const { v4: uuidv4 } = require('uuid'); // Import uuid library for unique IDs
-// const sequelize = require('./config/database'); // Assuming you have a configured Sequelize instance
-
-// const app = express();
-
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
-
-// app.use(express.static(path.join(__dirname, 'public')));
-
-// // Set the view engine to ejs
-// app.set('view engine', 'ejs');
-
-// // Set the views directory
-// app.set('views', path.join(__dirname, 'views'));
-
-// // Define the Post class
-// class Post {
-//   constructor(username, thoughts) {
-//     this.id = uuidv4(); // Assign a unique ID to each post
-//     this.username = username;
-//     this.thoughts = thoughts;
-//   }
-// }
-
-// // In-memory storage for posts (for development only)
-// const posts = [];
-
-// const addPost = (username, thoughts) => {
-//   posts.push(new Post(username, thoughts));
-// };
-
-// const deletePost = (id) => {
-//   const index = posts.findIndex(post => post.id === id);
-//   if (index !== -1) {
-//     posts.splice(index, 1);
-//     return true;
-//   }
-//   return false;
-// };
-
-// app.get('/', (req, res) => {
-//   res.status(200).json({
-//     status: "success",
-//     message: "Welcome to the Social Network API"
-//   });
-// });
-
-// // GET route to fetch all posts
-// app.get('/api/posts', (req, res) => {
-//   res.status(200).json({
-//     status: "success",
-//     data: posts
-//   });
-// });
-
-// app.post('/api/posts', (req, res) => {
-//   const { username, thoughts } = req.body;
-
-//   // Basic validation
-//   if (!username || !thoughts) {
-//     return res.status(400).json({
-//       status: "error",
-//       message: "Username and thoughts are required"
-//     });
-//   }
-
-//   // Add the post
-//   addPost(username, thoughts);
-//   console.log(username, thoughts);
-
-//   res.status(200).json({
-//     status: "success",
-//     message: "Post added successfully"
-//   });
-// });
-
-// // DELETE route to remove a post by ID
-// app.delete('/api/posts/:id', (req, res) => {
-//   const { id } = req.params;
-  
-//   if (deletePost(id)) {
-//     return res.status(200).json({
-//       status: "success",
-//       message: "Post deleted successfully"
-//     });
-//   } else {
-//     return res.status(404).json({
-//       status: "error",
-//       message: "Post not found"
-//     });
-//   }
-// });
-
-// const PORT = process.env.PORT || 3000;
-// app.listen(PORT, () => {
-//   console.log(`Server is running on port http://localhost:${PORT}`);
-// });
