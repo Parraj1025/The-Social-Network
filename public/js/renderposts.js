@@ -2,6 +2,8 @@
 // const username = document.getElementById('post')
 // const submitBtn = document.getElementById('submit')
 
+const { json } = require("sequelize")
+
 
 const array = []
 
@@ -29,11 +31,10 @@ function renderPosts (username) {
 async function loadPosts() {
     let URL = 'https://the-social-network.onrender.com/api/posts';
     let posting = await fetch(URL);
-    const current = posting.json();
-    const finalpost = current.prototype;
-    array.push(finalpost)
+    const current = JSON.parse(posting)
+    array.push(current)
     // console.log(current)
-    return finalpost
+    return current
 }
 
 // submitBtn.addEventListener('click', () => {
