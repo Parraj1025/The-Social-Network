@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3001
-const renderPost = require('./public/js/renderposts');
+const loadPosts= require('./public/js/renderposts');
 
 const { Client } = require('pg');
  

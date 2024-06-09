@@ -2,6 +2,9 @@
 // const username = document.getElementById('post')
 // const submitBtn = document.getElementById('submit')
 
+
+const array = []
+
 class post {
     constructor(username) {
         this.username = username
@@ -28,6 +31,7 @@ async function loadPosts() {
     let posting = await fetch(URL);
     const current = posting.json();
     const finalpost = current.result;
+    array.push(finalpost)
     // console.log(current)
     return finalpost
 }
