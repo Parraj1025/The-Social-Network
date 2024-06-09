@@ -5,6 +5,7 @@ const sequelize = require('./config/database');
 const User = require('./models/User'); //Import User model
 const Post = require('./models/post'); // Import the Post model
 const bcrypt = require('bcrypt');
+const { stat } = require('fs');
 
 const app = express();
 
@@ -17,9 +18,10 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 // Sync database
-sequelize.sync({ force: true })
+sequelize.sync()
   .then(() => console.log('Database synced'))
   .catch(err => console.log('Error syncing database:', err));
+
 
 function formatTime(date) {
   let hours = date.getHours();
@@ -38,6 +40,7 @@ app.get('/', (req, res) => {
   });
 });
 
+//GET ALL POSTS
 app.get('/api/posts', async (req, res) => {
   try {
     const posts = await Post.findAll();
@@ -59,6 +62,7 @@ app.get('/api/posts', async (req, res) => {
   }
 });
 
+//CREATE A POST
 app.post('/api/posts', async (req, res) => {
   const { username, thoughts } = req.body;
 
@@ -78,10 +82,10 @@ app.post('/api/posts', async (req, res) => {
       });
     }
 
-    const post = await Post.create({ username, thoughts });
+    const post = await Post.create({ thoughts, userId: user.id });
     const formattedPost = {
       id: post.id,
-      username: post.username,
+      username: user.username,
       thoughts: post.thoughts,
       createdAt: formatTime(post.createdAt)
     };
@@ -98,6 +102,7 @@ app.post('/api/posts', async (req, res) => {
   }
 });
 
+//DELETE A POST BY ID
 app.delete('/api/posts/:id', async (req, res) => {
   const { id } = req.params;
 
@@ -123,7 +128,7 @@ app.delete('/api/posts/:id', async (req, res) => {
   }
 });
 
-//Register new user
+//REGISTER A NEW USERS
 app.post('/api/users/register', async (req, res) => {
   const { username, password } = req.body;
 
@@ -150,8 +155,45 @@ app.post('/api/users/register', async (req, res) => {
   }
 });
 
-// Authenticate a user 
+// AUTHENTICATE A USER
+app.post('/api/users/login', async (req, res) => {
+  const { username, password } = req.body;
 
+  if (!username || !password) {
+    return res.status(400).json({
+      status: "error",
+      message: "Username and password are required"
+    });
+  }
+  try {
+    const user = await User.findOne({ where: {username} });
+    if (!user) {
+      return res.status(404).json({
+        status: "error",
+        message: "User not found"
+      });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({
+        status: "error",
+        message: "Invalid credentials"
+      });
+    }
+
+    res.status(200).json({
+      status: "success",
+      message: "User authenticated successfully",
+      data: {id: user.id, username: user.username }
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: "error",
+      message: error.message
+    });
+  }
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

@@ -17,7 +17,8 @@ const User = sequelize.define('User', {
         allowNull: false
     }
 }, {
-    timestamps: true
+    timestamps: true,
+    updatedAt: true, //disables  the updatedAt field
 });
 
 module.exports = User;
