@@ -1,6 +1,6 @@
 // controllers/postController.js
-const { Post } = require("../models");
-const { User } = require('../models')
+const { Post } = require("../src/models");
+const { User } = require('../src/models')
 const { formatDateTo12Hour } = require("../utils");
 
 exports.createPost = async (req, res) => {

@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
-const User = require('./user'); //import user model
-const { formatDateTo12Hour } = require('../utils');
+const sequelize = require('../../config/database');
+const User = require('../user'); //import user model
+const { formatDateTo12Hour } = require('../../utils');
 
 const Post = sequelize.define('Post', {
     id: {

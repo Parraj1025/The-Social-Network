@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { User } = require('../models');
+const { User } = require('../src/models');
 const { formatDateTo12Hour } = require('../utils');
 
 // Function to register a new user

@@ -1,7 +1,7 @@
-const sequelize = require('../config/database');
-const User = require('./user');
-const Post = require('./post');
-const { formatDateTo12Hour } = require('../utils');
+const sequelize = require('../../config/database');
+const User = require('./User');
+const Post = require('../models/post');
+const { formatDateTo12Hour } = require('../../utils');
  
 const initModels = async () => {
   try {
