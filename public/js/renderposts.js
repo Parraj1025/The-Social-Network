@@ -1,15 +1,14 @@
 
 // const username = document.getElementById('post')
 // const submitBtn = document.getElementById('submit')
-
-
-
+const post= []
 
 async function loadPosts() {
     let URL = 'https://the-social-network.onrender.com/api/posts';
     let posting = await fetch(URL);
     const current = await posting.json()
-    const it = Object.getPrototypeOf(current)
+    post.push(current)
+
     return it
 }
 
