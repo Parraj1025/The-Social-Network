@@ -9,8 +9,8 @@ async function loadPosts() {
     let URL = 'https://the-social-network.onrender.com/api/posts';
     let posting = await fetch(URL);
     const current =posting.json()
-    console.log(current.data)
-    return current
+    const it = Object.getPrototypeOf(current)
+    return it
 }
 
 // submitBtn.addEventListener('click', () => {
