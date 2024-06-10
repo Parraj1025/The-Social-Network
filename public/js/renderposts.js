@@ -10,7 +10,7 @@ async function loadPosts() {
     let posting = await fetch(URL);
     const current =posting.json()
     const it = Object.getPrototypeOf(current)
-    return it
+    return current
 }
 
 // submitBtn.addEventListener('click', () => {
