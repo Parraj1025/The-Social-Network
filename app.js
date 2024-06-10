@@ -4,8 +4,9 @@ const app = express();
 const PORT = process.env.PORT || 3001
 
 const { Client } = require('pg');
+
  
-const client = new Client({user: 'cascadepg_user', host: 'dpg-cpi5ch21hbls73bcf5i0-a.oregon-postgres.render.com', database: 'cascadepg', password: 'WReQeXFT8D9H0nrsyFplFCaC5Ru3Ieaw', port: '5432'});
+const client = new Client({ user: 'cascadepg_user', host: 'dpg-cpi5ch21hbls73bcf5i0-a', database: 'cascadepg', password: 'WReQeXFT8D9H0nrsyFplFCaC5Ru3Ieaw', port: '5432', });
  
 client.connect() .then(() => { console.log('Connected to PostgreSQL database!'); }) .catch((err) => { console.error('Error connecting to the database:', err); });
 
