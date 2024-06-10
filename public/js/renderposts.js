@@ -11,9 +11,8 @@ async function loadPosts() {
         if (!response.ok) {
             throw new Error(`not connected ${response.status}`)
         }
-
         const data = await response.json();
-        console.log(data);
+        console.log(data.json());
         return data
     } catch(error) {
         console.log('trouble loading posts... try again')
