@@ -2,13 +2,15 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3001
-const loadPosts= require('./public/js/renderposts');
 
 const { Client } = require('pg');
+const { Sequelize, Model, DataTypes } = require('sequelize');
  
 const client = new Client({ user: 'test', host: 'dpg-cpf5jmtds78s7396jnt0-a', database: 'socialdb_gk5k', password: 'BYzqlz4pODUQUtCSTlxQ5BO8I3ph0av8', port: '5432', });
  
 client.connect() .then(() => { console.log('Connected to PostgreSQL database!'); }) .catch((err) => { console.error('Error connecting to the database:', err); });
+
+
 
 //set environment variables 
 
@@ -81,3 +83,8 @@ app.delete('/api/posts', (req,res) => {
   })
 })
 
+
+
+const name = 'John Doe';
+const email = 'john.doe@example.com';
+const insertQuery = 'INSERT INTO users (name, email) VALUES ($1, $2)';

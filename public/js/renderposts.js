@@ -4,14 +4,29 @@
 const post= []
 
 async function loadPosts() {
-    let URL = 'https://the-social-network.onrender.com/api/posts';
-    let posting = await fetch(URL);
-    const current = await posting.json()
-    posting = current
-    console.log(current)
-    return posting
+    try {
+        const URL = 'https://the-social-network.onrender.com/api/posts';
+        const response = await fetch(URL);
+
+        if (!response.ok) {
+            throw new Error(`not connected ${response.status}`)
+        }
+
+        const data = await response.json();
+        console.log(data);
+        return data
+    } catch(error) {
+        console.log('trouble loading posts... try again')
+        return
+    }
+    
+    // let posting = await fetch(URL);
+    // const current = await posting.json()
+    // console.log(current)
+    // return 
 }
 
+ 
 // submitBtn.addEventListener('click', () => {
 //     event.preventDefault()
 //     let user = renderPosts(username.value)
