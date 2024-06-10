@@ -74,4 +74,29 @@ app.post('/api/posts', (req,res) => {
  res.json({message: `${username},${thoughts}`})
 })
 
+app.delete('/api/posts', (req,res) => {
+  res.status(204).send().json({
+    status: 'success' ,
+    message: 'post delete successful'
+  })
+})
 
+const deletePost = async (req, res) => {
+  try {
+  const { username } = req.params;
+  const post = await Post.findByPk(username);
+  if (post) {
+      await post.destroy();
+      res.status(204).send().json({
+          status: 'success',
+          message: 'Post deleted successfully',
+      });
+  } else {
+      res.status(404).json({ 
+          status: 'error',
+          message: 'Post not found' });
+  }
+  } catch (error) {
+  res.status(500).json({ error: error.message });
+  }
+};
