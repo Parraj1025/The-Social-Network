@@ -4,9 +4,8 @@ const app = express();
 const PORT = process.env.PORT || 3001
 
 const { Client } = require('pg');
-const { Sequelize, Model, DataTypes } = require('sequelize');
  
-const client = new Client({ user: 'test', host: 'dpg-cpf5jmtds78s7396jnt0-a', database: 'socialdb_gk5k', password: 'BYzqlz4pODUQUtCSTlxQ5BO8I3ph0av8', port: '5432', });
+const client = new Client({user: 'socialdb', host: 'dpg-cpjon7v109ks73eptlmg-a', database: 'the_social_network', password: '9bV5QfsQhP3oyP2kUMBucHcn1pwnxNzd', port: '5432'});
  
 client.connect() .then(() => { console.log('Connected to PostgreSQL database!'); }) .catch((err) => { console.error('Error connecting to the database:', err); });
 
