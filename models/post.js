@@ -1,6 +1,6 @@
 const { Sequelize, DataTypes } = require('sequelize')
 require('dotenv').config()
-const sequelize = new Sequelize(process.env.POSTGRESURL)
+const sequelize = new Sequelize(process.env.CONNECT)
 
 const Post = sequelize.define('Post', {
     id: {

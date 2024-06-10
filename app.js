@@ -2,11 +2,11 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3001
-const loadPosts= require('./public/js/renderposts');
+const CONNECT = process.env.CONNECT
 
 const { Client } = require('pg');
  
-const client = new Client({ user: 'test', host: 'dpg-cpf5jmtds78s7396jnt0-a', database: 'socialdb_gk5k', password: 'BYzqlz4pODUQUtCSTlxQ5BO8I3ph0av8', port: '5432', });
+const client = new Client(CONNECT);
  
 client.connect() .then(() => { console.log('Connected to PostgreSQL database!'); }) .catch((err) => { console.error('Error connecting to the database:', err); });
 
