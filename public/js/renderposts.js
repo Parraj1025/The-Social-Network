@@ -2,9 +2,6 @@
 // const username = document.getElementById('post')
 // const submitBtn = document.getElementById('submit')
 
-
-const array = []
-
 class post {
     constructor(username) {
         this.username = username
@@ -29,11 +26,9 @@ function renderPosts (username) {
 async function loadPosts() {
     let URL = 'https://the-social-network.onrender.com/api/posts';
     let posting = await fetch(URL);
-    const current = posting.json();
-    const finalpost = Object.getPrototypeOf(current)
-    array.push(finalpost)
+    const current =posting.json()
     // console.log(current)
-    return finalpost
+    return current
 }
 
 // submitBtn.addEventListener('click', () => {
