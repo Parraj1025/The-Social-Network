@@ -10,7 +10,7 @@ async function loadPosts() {
     let URL = 'https://the-social-network.onrender.com/api/posts';
     let posting = await fetch(URL);
     const current = JSON.parse(posting);
-    console.log(current)
+    console.log(current.result)
     return current
 }
 
