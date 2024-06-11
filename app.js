@@ -44,7 +44,7 @@ const { sequelize, initModels } = require('./models');
 const userRoutes = require('./routes/userRoutes');
 const postRoutes = require('./routes/postRoutes');
 const authRoutes = require('./routes/authRoutes');
-// const cors = require('cors');
+const cors = require('cors');
 
 const app = express();
 
@@ -57,7 +57,7 @@ app.set('views', path.join(__dirname, 'views'));
 // Sync database and initialize models
 initModels();
 
-// app.use(cors());
+app.use(cors());
 app.use('/api/users', userRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/auth', authRoutes);
