@@ -1,12 +1,16 @@
 require('dotenv').config();
 const express = require('express');
 const app = express();
-const PORT = process.env.PORT || 3001
+const port = process.env.port || 3001
+const user = process.env.user
+const host = process.env.host
+const database = process.env.database
+const password = process.env.password
 
 const { Client } = require('pg');
 
  
-const client = new Client({ user: 'socialdb', host: 'dpg-cpjon7v109ks73eptlmg-a', database: 'the_social_network', password: '9bV5QfsQhP3oyP2kUMBucHcn1pwnxNzd', port: '5432', });
+const client = new Client({ user, host, database, password, port, });
  
 client.connect() .then(() => { console.log('Connected to PostgreSQL database!'); }) .catch((err) => { console.error('Error connecting to the database:', err); });
 
@@ -35,8 +39,8 @@ class post {
 
 
 // //show what port it is listening on
-app.listen(PORT, () => {
-console.log(`running on port ${PORT}`)});
+app.listen(port, () => {
+console.log(`running on port ${port}`)});
 
 //get route for index files
 
