@@ -2,10 +2,11 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const sequelize = require('./config/database');
-const { initModels } = require('./src/models');
+const { initModels } = require('./models');
 const userRoutes = require('./routes/userRoutes');
 const postRoutes = require('./routes/postRoutes');
 const authRoutes = require('./routes/authRoutes');
+
 
 const app = express();
 
@@ -15,16 +16,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-// Sync database
-sequelize.sync()
-  .then(() => console.log('Database synced'))
-  .catch(err => console.log('Error syncing database:', err));
+// Sync database and initialize models
+initModels();
 
-initModels(); // Sync database and initialize models
-
-app.use('/api/users', userRoutes); // User registration and other user-related routes
+// app.use(cors());
+app.use('/api/users', userRoutes);
 app.use('/api/posts', postRoutes);
-app.use('/api/auth', authRoutes); // Login route
+app.use('/api/auth', authRoutes);
 
 app.get('/', (req, res) => {
   res.status(200).json({

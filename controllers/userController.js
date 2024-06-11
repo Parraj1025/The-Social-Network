@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const { User } = require('../src/models');
+const { User } = require('../models');
 const { formatDateTo12Hour } = require('../utils');
 
 exports.registerUser = async (req, res) => {
