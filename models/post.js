@@ -1,24 +1,28 @@
+const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
-const User = require('./User');
-const Post = require('./Post');
+const User = require('./User'); // Import User model
+const { formatDateTo12Hour } = require('../utils');
 
-const initModels = async () => {
-  try {
-    await sequelize.sync({ force: false });
-    console.log('Database synced');
-  } catch (error) {
-    console.error('Error syncing database:', error);
+
+const Post = sequelize.define('Post', {
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true
+  },
+  thoughts: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+  },
+  userId: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: 'Users', // Should match table name
+      key: 'id'
+    }
   }
-};
+}, {
+  timestamps: true,
+});
 
-// Define the relationships
-Post.belongsTo(User, { foreignKey: 'userId' });
-User.hasMany(Post, { foreignKey: 'userId' });
-
-module.exports = {
-  sequelize,
-  User,
-  Post,
-  initModels
-};
-
+module.exports = Post;
